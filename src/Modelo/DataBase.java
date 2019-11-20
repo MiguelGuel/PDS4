@@ -5,6 +5,7 @@
  */
 package Modelo;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,5 +93,28 @@ public abstract class DataBase {
         }
         
         return sb.toString();   
+    }
+    public String buscarEmpleados(){
+        StringBuilder sb = new StringBuilder();
+        try {
+            PreparedStatement  ps = connection.prepareStatement("select * from empleados");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String nombre = rs.getString(2);
+                String apellido = rs.getString(3);
+                Date fecha = rs.getDate(4);
+                int jefe = rs.getInt(5);
+                int ext = rs.getInt(6);
+                sb.append("Nombre: "+nombre+"\n");
+                sb.append("Apellido: " + apellido+"\n");
+                sb.append("Fecha de nacimiento: " + fecha+"\n");
+                sb.append("Jefe: " + jefe+"\n");
+                sb.append("Extensión: " + "\n");
+                sb.append("-------------\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sb.toString();
     }
 }

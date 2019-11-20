@@ -46,6 +46,9 @@ public class menu extends javax.swing.JFrame {
         verCli = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textEm = new javax.swing.JTextArea();
+        verEm = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -56,6 +59,7 @@ public class menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        text.setEditable(false);
         text.setColumns(20);
         text.setRows(5);
         jScrollPane1.setViewportView(text);
@@ -126,6 +130,7 @@ public class menu extends javax.swing.JFrame {
 
         jLabel5.setText("Ver clientes:");
 
+        textCli.setEditable(false);
         textCli.setColumns(20);
         textCli.setRows(5);
         jScrollPane3.setViewportView(textCli);
@@ -171,15 +176,32 @@ public class menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Detalles de ordenes", jPanel3);
 
+        textEm.setEditable(false);
+        textEm.setColumns(20);
+        textEm.setRows(5);
+        jScrollPane4.setViewportView(textEm);
+
+        verEm.setText("Ver empleados");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verEm))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(verEm)
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", jPanel4);
@@ -212,6 +234,7 @@ public class menu extends javax.swing.JFrame {
 
         jLabel4.setText("Ver proveedores:");
 
+        textPro.setEditable(false);
         textPro.setColumns(20);
         textPro.setRows(5);
         jScrollPane2.setViewportView(textPro);
@@ -317,12 +340,15 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTextArea text;
     public javax.swing.JTextArea textCli;
+    public javax.swing.JTextArea textEm;
     public javax.swing.JTextArea textPro;
     public javax.swing.JButton verC;
     public javax.swing.JButton verCli;
+    public javax.swing.JButton verEm;
     public javax.swing.JButton verPro;
     // End of variables declaration//GEN-END:variables
 }

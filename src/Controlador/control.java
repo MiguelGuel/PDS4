@@ -27,6 +27,7 @@ public class control implements ActionListener {
         men.eliminarC.addActionListener(this);
         men.verPro.addActionListener(this);
         men.verCli.addActionListener(this);
+        men.verEm.addActionListener(this);
     }
 
     public void iniciar() {
@@ -42,15 +43,20 @@ public class control implements ActionListener {
                 String datos = model.buscarCategorias("SELECT nombrecat FROM categorias");
                 men.text.setText("Categorías: \n\n" + datos);
                 break;
-                
+
             case "Ver proveedores":
                 String datosp = model.buscarProveedores();
                 men.textPro.setText(datosp);
                 break;
-            
+
             case "Ver clientes":
-                    String datospr = model.buscarClientes();
-                    men.textCli.setText(datospr);
+                String datospr = model.buscarClientes();
+                men.textCli.setText(datospr);
+                break;
+
+            case "Ver empleados":
+                String datosem = model.buscarEmpleados();
+                men.textEm.setText(datosem);
                 break;
             default:
                 throw new AssertionError();

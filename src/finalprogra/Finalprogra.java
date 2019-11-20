@@ -35,6 +35,5 @@ public class Finalprogra {
         men.setVisible(true);
     }
     
-    //PUTO
 
 }
