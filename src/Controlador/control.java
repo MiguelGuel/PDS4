@@ -29,6 +29,7 @@ public class control implements ActionListener {
         men.verCli.addActionListener(this);
         men.verEm.addActionListener(this);
         men.verOr.addActionListener(this);
+        men.verProd.addActionListener(this);
     }
 
     public void iniciar() {
@@ -63,6 +64,10 @@ public class control implements ActionListener {
             case "Ver ordenes":
                 String datosor = model.buscarOrdendes();
                 men.textOr.setText(datosor);
+                break;
+            case "Ver productos":
+                String datospro = model.buscarProductos();
+                men.textProd.setText(datospro);
                 break;
             default:
                 throw new AssertionError();

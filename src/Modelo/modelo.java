@@ -61,7 +61,11 @@ public class modelo {
             String resultado = db.buscarOrdenes();
             return resultado;
         }
-
+        
+        public String buscarProductos(){
+            String resultado = db.buscarProductos();
+            return resultado;
+        }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();
         try {

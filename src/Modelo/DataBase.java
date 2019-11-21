@@ -18,19 +18,19 @@ import java.util.logging.Logger;
  * @author pedro
  */
 public abstract class DataBase {
-
+    
     Connection connection;
-
+    
     public abstract boolean Open();
-
+    
     public abstract ResultSet Query(String queryString) throws SQLException;
-
+    
     public abstract boolean Close();
-
+    
     public abstract ResultSet QueryRecorrible(String queryString) throws SQLException;
-
+    
     public abstract void Insert(String query) throws SQLException;
-
+    
     public String buscarCategorias(String query) {
         StringBuilder sb = new StringBuilder();
         try {
@@ -44,9 +44,9 @@ public abstract class DataBase {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sb.toString();
-
+        
     }
-
+    
     public String buscarProveedores(String query) {
         StringBuilder sb = new StringBuilder();
         try {
@@ -67,10 +67,10 @@ public abstract class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return sb.toString();
     }
-
+    
     public String buscarClientes() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -94,15 +94,15 @@ public abstract class DataBase {
                 sb.append("Celular: " + cel + "\n");
                 sb.append("Teléfono fijo: " + fijo + "\n");
                 sb.append("----------\n");
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return sb.toString();
     }
-
+    
     public String buscarEmpleados() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -126,7 +126,7 @@ public abstract class DataBase {
         }
         return sb.toString();
     }
-
+    
     public String buscarOrdenes() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -139,11 +139,34 @@ public abstract class DataBase {
                 String nombrecia = rs.getString(3);
                 Date fecha = rs.getDate(4);
                 int desc = rs.getInt(5);
-                sb.append("Empleado que realizó la orden: "+nombre+apellido+"\n");
-                sb.append("Cliente: " + nombrecia+"\n");
-                sb.append("Fecha de orden: "+fecha+"\n");
-                sb.append("Descuento aplicado: " + desc+"\n");
+                sb.append("Empleado que realizó la orden: " + nombre + apellido + "\n");
+                sb.append("Cliente: " + nombrecia + "\n");
+                sb.append("Fecha de orden: " + fecha + "\n");
+                sb.append("Descuento aplicado: " + desc + "\n");
                 sb.append("-----------\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sb.toString();
+    }
+
+    public String buscarProductos() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            PreparedStatement ps = connection.prepareStatement("select proveedores.nombreprov, categorias.nombrecat, productos.descripcion, productos.preciounit\n"
+                    + "from proveedores join productos on(proveedores.proveedorid = productos.proveedorid) join categorias on (categorias.categoriaid = productos.categoriaid)");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String prove = rs.getString(1);
+                String cate = rs.getString(2);
+                String desc = rs.getString(3);
+                Double precio = rs.getDouble(4);
+                sb.append("Proveedor: " + prove + "\n");
+                sb.append("Categoría: " + cate + "\n");
+                sb.append("Descripción: " + desc + "\n");
+                sb.append("Precio: " + precio + "\n");
+                sb.append("-------------\n");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
