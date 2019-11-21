@@ -50,6 +50,9 @@ public class menu extends javax.swing.JFrame {
         textEm = new javax.swing.JTextArea();
         verEm = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textOr = new javax.swing.JTextArea();
+        verOr = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -206,15 +209,32 @@ public class menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Empleados", jPanel4);
 
+        textOr.setEditable(false);
+        textOr.setColumns(20);
+        textOr.setRows(5);
+        jScrollPane5.setViewportView(textOr);
+
+        verOr.setText("Ver ordenes");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(verOr)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(verOr)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ordenes", jPanel5);
@@ -341,14 +361,17 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTextArea text;
     public javax.swing.JTextArea textCli;
     public javax.swing.JTextArea textEm;
+    public javax.swing.JTextArea textOr;
     public javax.swing.JTextArea textPro;
     public javax.swing.JButton verC;
     public javax.swing.JButton verCli;
     public javax.swing.JButton verEm;
+    public javax.swing.JButton verOr;
     public javax.swing.JButton verPro;
     // End of variables declaration//GEN-END:variables
 }
