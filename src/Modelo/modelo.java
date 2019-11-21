@@ -66,6 +66,14 @@ public class modelo {
             String resultado = db.buscarProductos();
             return resultado;
         }
+        
+        public void agregarCliente(String cedula,String nombre,String contacto,String direccion,String fax,String email,String celular,String fijo){
+            db.agregarCliente(cedula, nombre, contacto, direccion, fax, email, celular, fijo);
+        }
+        
+        public void agregarCategoria(String cate){
+            db.agregarCategoria(cate);
+        }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();
         try {

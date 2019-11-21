@@ -30,6 +30,7 @@ public class control implements ActionListener {
         men.verEm.addActionListener(this);
         men.verOr.addActionListener(this);
         men.verProd.addActionListener(this);
+        men.agregarCl.addActionListener(this);
     }
 
     public void iniciar() {
@@ -68,6 +69,32 @@ public class control implements ActionListener {
             case "Ver productos":
                 String datospro = model.buscarProductos();
                 men.textProd.setText(datospro);
+                break;
+                
+            case "Agregar cliente":
+                String nombre = men.nombre.getText();
+                String cedula = men.ced.getText();
+                String contacto = men.contacto.getText();
+                String dire = men.dire.getText();
+                String fax = men.fax.getText();
+                String mail = men.mail.getText();
+                String cel = men.cel.getText();
+                String fijo = men.fijo.getText();
+                model.agregarCliente(cedula,nombre.toUpperCase(),contacto.toUpperCase(),dire.toUpperCase(),fax,mail,cel,fijo);
+                men.nombre.setText("");
+                men.ced.setText("");
+                men.contacto.setText("");
+                men.dire.setText("");
+                men.fax.setText("");
+                men.mail.setText("");
+                men.cel.setText("");
+                men.fijo.setText("");
+                break;
+                
+            case "Agregar categoria":
+                String cate = men.cate.getText();
+                model.agregarCategoria(cate);
+                men.cate.setText("");
                 break;
             default:
                 throw new AssertionError();

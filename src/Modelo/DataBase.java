@@ -18,19 +18,19 @@ import java.util.logging.Logger;
  * @author pedro
  */
 public abstract class DataBase {
-    
+
     Connection connection;
-    
+
     public abstract boolean Open();
-    
+
     public abstract ResultSet Query(String queryString) throws SQLException;
-    
+
     public abstract boolean Close();
-    
+
     public abstract ResultSet QueryRecorrible(String queryString) throws SQLException;
-    
+
     public abstract void Insert(String query) throws SQLException;
-    
+
     public String buscarCategorias(String query) {
         StringBuilder sb = new StringBuilder();
         try {
@@ -44,9 +44,9 @@ public abstract class DataBase {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sb.toString();
-        
+
     }
-    
+
     public String buscarProveedores(String query) {
         StringBuilder sb = new StringBuilder();
         try {
@@ -67,10 +67,10 @@ public abstract class DataBase {
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return sb.toString();
     }
-    
+
     public String buscarClientes() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -94,15 +94,15 @@ public abstract class DataBase {
                 sb.append("Celular: " + cel + "\n");
                 sb.append("Teléfono fijo: " + fijo + "\n");
                 sb.append("----------\n");
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return sb.toString();
     }
-    
+
     public String buscarEmpleados() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -126,7 +126,7 @@ public abstract class DataBase {
         }
         return sb.toString();
     }
-    
+
     public String buscarOrdenes() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -173,4 +173,39 @@ public abstract class DataBase {
         }
         return sb.toString();
     }
+
+    public void agregarCliente(String cedula, String nombre, String contacto, String direccion, String fax, String email, String cel, String fijo) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select clienteid from clientes", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt(1) + 1;
+            String query = "INSERT INTO clientes(\n"
+                    + "	clienteid, cedula_ruc, nombrecia, nombrecontacto, direccioncli, fax, email, celular, fijo)\n"
+                    + "	VALUES("+ultimo+",'"+cedula+"','"+nombre+"','"+contacto+"','"+direccion+"','"+fax+"','"+email+"','"+cel+"','"+fijo+"')";
+            System.out.println(query);
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void agregarCategoria(String cate){
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT categoriaid FROM categorias", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt("categoriaid") + 100;
+            String query = "INSERT INTO public.categorias(\n"
+                    + "	categoriaid, nombrecat)\n"
+                    + "	VALUES ("+ultimo+",'"+cate.toUpperCase()+"');";
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
