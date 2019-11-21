@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -77,6 +78,14 @@ public class modelo {
         
         public void agregarProveedor(String nombre, String cont, String cel, String fijo){
             db.agregarProveedor(nombre, cont, cel, fijo);
+        }
+        
+        public ResultSet llenarEmpleados(){
+            ResultSet rs = db.llenarEmpleados();
+            return rs;
+        }
+        public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext){
+            db.agregarEmpleado(nombre,ape,fecha,id,ext);
         }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();

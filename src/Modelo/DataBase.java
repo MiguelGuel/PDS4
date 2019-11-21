@@ -106,19 +106,24 @@ public abstract class DataBase {
     public String buscarEmpleados() {
         StringBuilder sb = new StringBuilder();
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from empleados");
+            PreparedStatement ps = connection.prepareStatement("select emp.nombre, emp.apellido,emp.fecha_nac, jefe.nombre as nombre_del_jefe, jefe.apellido as ape_del_jefe, emp.extension\n"
+                    + "  from empleados emp       -- emp: empleado\n"
+                    + "  left join empleados jefe\n"
+                    + "    on jefe.empleadoid = emp.reporta_a;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String nombre = rs.getString(2);
-                String apellido = rs.getString(3);
-                Date fecha = rs.getDate(4);
-                int jefe = rs.getInt(5);
+                String nombre = rs.getString(1).trim();
+                String apellido = rs.getString(2).trim();
+                Date fecha = rs.getDate(3);
+                String nombrej = rs.getString(4);
+                String apej = rs.getString(5);
                 int ext = rs.getInt(6);
                 sb.append("Nombre: " + nombre + "\n");
                 sb.append("Apellido: " + apellido + "\n");
                 sb.append("Fecha de nacimiento: " + fecha + "\n");
-                sb.append("Jefe: " + jefe + "\n");
-                sb.append("Extensión: " + "\n");
+                sb.append("Nombre Jefe: " + nombrej + "\n");
+                sb.append("Apellido Jefe: " + apej + "\n");
+                sb.append("Extensión: " + ext + "\n");
                 sb.append("-------------\n");
             }
         } catch (SQLException ex) {
@@ -134,12 +139,12 @@ public abstract class DataBase {
                     + "from ordenes join empleados on (ordenes.empleadoid = empleados.empleadoid) join clientes on (clientes.clienteid = ordenes.clienteid)");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String nombre = rs.getString(1);
-                String apellido = rs.getString(2);
+                String nombre = rs.getString(1).trim();
+                String apellido = rs.getString(2).trim();
                 String nombrecia = rs.getString(3);
                 Date fecha = rs.getDate(4);
                 int desc = rs.getInt(5);
-                sb.append("Empleado que realizó la orden: " + nombre + apellido + "\n");
+                sb.append("Empleado que realizó la orden: " + nombre + " " + apellido + "\n");
                 sb.append("Cliente: " + nombrecia + "\n");
                 sb.append("Fecha de orden: " + fecha + "\n");
                 sb.append("Descuento aplicado: " + desc + "\n");
@@ -216,8 +221,38 @@ public abstract class DataBase {
             int ultimo = rs.getInt("proveedorid") + 10;
             String query = "INSERT INTO proveedores(\n"
                     + "	proveedorid, nombreprov, contacto, celuprov, fijoprov)\n"
-                    + "	VALUES ("+ultimo+",'"+nombre.toUpperCase()+"','"+cont.toUpperCase()+"',"+cel+","+fijo+");";
+                    + "	VALUES (" + ultimo + ",'" + nombre.toUpperCase() + "','" + cont.toUpperCase() + "'," + cel + "," + fijo + ");";
             System.out.println(query);
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public ResultSet llenarEmpleados() {
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public void agregarEmpleado(String nombre, String ape, String fecha, int jefe, int ext) {
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement("select empleadoid from empleados order by empleadoid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt(1) + 1;
+            String query = "INSERT INTO empleados(\n"
+                    + "	empleadoid, nombre, apellido, fecha_nac, reporta_a, extension)\n"
+                    + "	VALUES (" + ultimo + ",'" + nombre + "','" + ape + "','" + fecha + "'," + jefe + "," + ext + ");";
             PreparedStatement ps1 = connection.prepareStatement(query);
             ps1.executeUpdate();
         } catch (SQLException ex) {

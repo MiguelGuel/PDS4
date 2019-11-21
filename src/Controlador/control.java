@@ -9,6 +9,12 @@ import Modelo.modelo;
 import Vista.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +28,7 @@ public class control implements ActionListener {
     public control(menu men, modelo model) {
         this.men = men;
         this.model = model;
+        llenarEmpleados();
         men.verC.addActionListener(this);
         men.agregarC.addActionListener(this);
         men.eliminarC.addActionListener(this);
@@ -32,8 +39,19 @@ public class control implements ActionListener {
         men.verProd.addActionListener(this);
         men.agregarCl.addActionListener(this);
         men.agrePro.addActionListener(this);
+        men.agreEm.addActionListener(this);
     }
-
+    public void llenarEmpleados(){
+        ResultSet rs = model.llenarEmpleados();
+        try {
+            while (rs.next()) {
+                men.comboEm.addItem(rs.getInt(1)+"-"+rs.getString(2).trim() + " " + rs.getString(3).trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     public void iniciar() {
         men.setTitle("Proveedores");
         men.setLocationRelativeTo(null);
@@ -105,6 +123,24 @@ public class control implements ActionListener {
                 String fijopro = men.fijoPro.getText();
                 model.agregarProveedor(nombrepr, contactopr, celpro, fijopro);
                 break;
+                
+            case "Agregar empleado":
+                String nombreem = men.nombreEm.getText();
+                String apellidoem = men.apeEm.getText();
+                java.util.Date fecha = men.dateEm.getDate();
+                String jefe = (String) men.comboEm.getSelectedItem();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String fecha1 = format.format(fecha);
+                String[] datosj = jefe.split("-");
+                int id = Integer.parseInt(datosj[0]);
+                int ext = Integer.parseInt(men.extEm.getText());
+                model.agregarEmpleado(nombreem.toUpperCase(),apellidoem.toUpperCase(),fecha1, id,ext);
+                men.nombreEm.setText("");
+                men.apeEm.setText("");
+                men.comboEm.setSelectedIndex(1);
+                men.extEm.setText("");
+                break;
+                
             default:
                 throw new AssertionError();
         }
