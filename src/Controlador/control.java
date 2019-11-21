@@ -31,6 +31,7 @@ public class control implements ActionListener {
         men.verOr.addActionListener(this);
         men.verProd.addActionListener(this);
         men.agregarCl.addActionListener(this);
+        men.agrePro.addActionListener(this);
     }
 
     public void iniciar() {
@@ -95,6 +96,14 @@ public class control implements ActionListener {
                 String cate = men.cate.getText();
                 model.agregarCategoria(cate);
                 men.cate.setText("");
+                break;
+                
+            case "Agregar proveedor":
+                String nombrepr = men.nomPro.getText();
+                String contactopr = men.conPro.getText();
+                String celpro = men.celPro.getText();
+                String fijopro = men.fijoPro.getText();
+                model.agregarProveedor(nombrepr, contactopr, celpro, fijopro);
                 break;
             default:
                 throw new AssertionError();

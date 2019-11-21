@@ -182,30 +182,47 @@ public abstract class DataBase {
             int ultimo = rs.getInt(1) + 1;
             String query = "INSERT INTO clientes(\n"
                     + "	clienteid, cedula_ruc, nombrecia, nombrecontacto, direccioncli, fax, email, celular, fijo)\n"
-                    + "	VALUES("+ultimo+",'"+cedula+"','"+nombre+"','"+contacto+"','"+direccion+"','"+fax+"','"+email+"','"+cel+"','"+fijo+"')";
+                    + "	VALUES(" + ultimo + ",'" + cedula + "','" + nombre + "','" + contacto + "','" + direccion + "','" + fax + "','" + email + "','" + cel + "','" + fijo + "')";
             System.out.println(query);
             PreparedStatement ps1 = connection.prepareStatement(query);
-            
+
             ps1.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void agregarCategoria(String cate){
+
+    public void agregarCategoria(String cate) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT categoriaid FROM categorias", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             rs.last();
             int ultimo = rs.getInt("categoriaid") + 100;
-            String query = "INSERT INTO public.categorias(\n"
+            String query = "INSERT INTO categorias(\n"
                     + "	categoriaid, nombrecat)\n"
-                    + "	VALUES ("+ultimo+",'"+cate.toUpperCase()+"');";
+                    + "	VALUES (" + ultimo + ",'" + cate.toUpperCase() + "');";
             PreparedStatement ps1 = connection.prepareStatement(query);
             ps1.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void agregarProveedor(String nombre, String cont, String cel, String fijo) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from proveedores order by proveedorid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt("proveedorid") + 10;
+            String query = "INSERT INTO proveedores(\n"
+                    + "	proveedorid, nombreprov, contacto, celuprov, fijoprov)\n"
+                    + "	VALUES ("+ultimo+",'"+nombre.toUpperCase()+"','"+cont.toUpperCase()+"',"+cel+","+fijo+");";
+            System.out.println(query);
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

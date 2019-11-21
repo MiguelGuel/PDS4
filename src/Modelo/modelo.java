@@ -74,6 +74,10 @@ public class modelo {
         public void agregarCategoria(String cate){
             db.agregarCategoria(cate);
         }
+        
+        public void agregarProveedor(String nombre, String cont, String cel, String fijo){
+            db.agregarProveedor(nombre, cont, cel, fijo);
+        }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();
         try {
