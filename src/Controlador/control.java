@@ -29,6 +29,7 @@ public class control implements ActionListener {
         this.men = men;
         this.model = model;
         llenarEmpleados();
+        llenarClientes();
         men.verC.addActionListener(this);
         men.agregarC.addActionListener(this);
         men.eliminarC.addActionListener(this);
@@ -40,17 +41,29 @@ public class control implements ActionListener {
         men.agregarCl.addActionListener(this);
         men.agrePro.addActionListener(this);
         men.agreEm.addActionListener(this);
+        men.agreOr.addActionListener(this);
     }
     public void llenarEmpleados(){
         ResultSet rs = model.llenarEmpleados();
         try {
             while (rs.next()) {
                 men.comboEm.addItem(rs.getInt(1)+"-"+rs.getString(2).trim() + " " + rs.getString(3).trim());
+                men.comboEmOr.addItem(rs.getInt(1)+"-"+rs.getString(2).trim() + " " + rs.getString(3).trim());
             }
         } catch (SQLException ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    public void llenarClientes(){
+        ResultSet rs = model.llenarClientes();
+        try {
+            while (rs.next()) {
+                men.comboClieOr.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void iniciar() {
         men.setTitle("Proveedores");
@@ -139,6 +152,26 @@ public class control implements ActionListener {
                 men.apeEm.setText("");
                 men.comboEm.setSelectedIndex(1);
                 men.extEm.setText("");
+                break;
+                
+            case "Agregar orden":
+                String emp = (String) men.comboEmOr.getSelectedItem();
+                String datosemp[] = emp.split("-");
+                int idemp = Integer.parseInt(datosemp[0]);
+                
+                String cli = (String) men.comboClieOr.getSelectedItem();
+                String dacli[] = cli.split("-");
+                int idecli = Integer.parseInt(dacli[0]);
+                
+                java.util.Date fechaOr = men.datechooserOr.getDate();
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                
+                int desc = Integer.parseInt(men.descOR.getText());
+                
+                String fecha2 = formato.format(fechaOr);
+                
+                model.agregarOrden(idemp, idecli, fecha2, desc);
+                men.descOR.setText("");
                 break;
                 
             default:

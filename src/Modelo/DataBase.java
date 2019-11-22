@@ -147,7 +147,7 @@ public abstract class DataBase {
                 sb.append("Empleado que realizó la orden: " + nombre + " " + apellido + "\n");
                 sb.append("Cliente: " + nombrecia + "\n");
                 sb.append("Fecha de orden: " + fecha + "\n");
-                sb.append("Descuento aplicado: " + desc + "\n");
+                sb.append("Descuento aplicado: " + desc + "%\n");
                 sb.append("-----------\n");
             }
         } catch (SQLException ex) {
@@ -233,9 +233,19 @@ public abstract class DataBase {
 
     public ResultSet llenarEmpleados() {
         ResultSet rs = null;
-        StringBuilder sb = new StringBuilder();
         try {
             PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public ResultSet llenarClientes() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select clienteid,nombrecia from clientes");
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -259,5 +269,21 @@ public abstract class DataBase {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public void agregarOrden(int idEm, int idCli, String fecha, int desc) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select ordenid from ordenes order by ordenid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt(1) + 1;
+            String query = "INSERT INTO ordenes(\n"
+                    + "	ordenid, empleadoid, clienteid, fechaorden, descuento)\n"
+                    + "	VALUES ("+ultimo+","+idEm+","+idCli+",'"+fecha+"',"+desc+");";
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

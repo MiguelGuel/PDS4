@@ -84,8 +84,17 @@ public class modelo {
             ResultSet rs = db.llenarEmpleados();
             return rs;
         }
+        
+        public ResultSet llenarClientes(){
+            ResultSet rs = db.llenarClientes();
+            return rs;
+        }
         public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext){
             db.agregarEmpleado(nombre,ape,fecha,id,ext);
+        }
+        
+        public void agregarOrden(int id, int idc, String fecha, int desc){
+            db.agregarOrden(id, idc, fecha, desc);
         }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();
