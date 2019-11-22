@@ -30,6 +30,8 @@ public class control implements ActionListener {
         this.model = model;
         llenarEmpleados();
         llenarClientes();
+        llenarProveedores();
+        llenarCategorias();
         men.verC.addActionListener(this);
         men.agregarC.addActionListener(this);
         men.eliminarC.addActionListener(this);
@@ -42,6 +44,7 @@ public class control implements ActionListener {
         men.agrePro.addActionListener(this);
         men.agreEm.addActionListener(this);
         men.agreOr.addActionListener(this);
+        men.agrep.addActionListener(this);
     }
     public void llenarEmpleados(){
         ResultSet rs = model.llenarEmpleados();
@@ -60,6 +63,28 @@ public class control implements ActionListener {
         try {
             while (rs.next()) {
                 men.comboClieOr.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void llenarProveedores(){
+        ResultSet rs = model.llenarProveedores();
+        try {
+            while (rs.next()) {
+                men.provP.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void llenarCategorias(){
+        ResultSet rs = model.llenarCategorias();
+        try {
+            while (rs.next()) {
+              men.catP.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
             }
         } catch (SQLException ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,6 +199,24 @@ public class control implements ActionListener {
                 men.descOR.setText("");
                 break;
                 
+            case "Agregar producto":
+                String pro = (String) men.provP.getSelectedItem();
+                String dapro[] = pro.split("-");
+                int idpro = Integer.parseInt(dapro[0]);
+                
+                String cat = (String) men.catP.getSelectedItem();
+                String dacat[] = cat.split("-");
+                int idcat = Integer.parseInt(dacat[0]);
+                
+                String descripcion = men.descr.getText();
+                int precio = Integer.parseInt(men.precio.getText());
+                int existencia = Integer.parseInt(men.exist.getText());
+                
+                model.agregarProducto(idpro, idcat, descripcion.toUpperCase(), precio, existencia);
+                men.descr.setText("");
+                men.precio.setText("");
+                men.exist.setText("");
+                break;
             default:
                 throw new AssertionError();
         }

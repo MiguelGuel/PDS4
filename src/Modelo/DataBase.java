@@ -253,6 +253,28 @@ public abstract class DataBase {
         return rs;
     }
 
+    public ResultSet llenarProveedores() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select proveedorid, nombreprov from proveedores order by proveedorid");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public ResultSet llenarCategorias() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from categorias order by categoriaid");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
     public void agregarEmpleado(String nombre, String ape, String fecha, int jefe, int ext) {
         PreparedStatement ps;
         try {
@@ -279,11 +301,28 @@ public abstract class DataBase {
             int ultimo = rs.getInt(1) + 1;
             String query = "INSERT INTO ordenes(\n"
                     + "	ordenid, empleadoid, clienteid, fechaorden, descuento)\n"
-                    + "	VALUES ("+ultimo+","+idEm+","+idCli+",'"+fecha+"',"+desc+");";
+                    + "	VALUES (" + ultimo + "," + idEm + "," + idCli + ",'" + fecha + "'," + desc + ");";
             PreparedStatement ps1 = connection.prepareStatement(query);
             ps1.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void agregarProducto(int provid, int catid, String desc, int precio, int exist) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select productoid from productos order by productoid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            int ultimo = rs.getInt(1) + 1;
+            String query = "INSERT INTO productos(\n"
+                    + "	productoid, proveedorid, categoriaid, descripcion, preciounit, existencia)\n"
+                    + "	VALUES (" + ultimo + "," + provid + "," + catid + ",'" + desc + "'," + precio + "," + exist + ");";
+            PreparedStatement ps1 = connection.prepareStatement(query);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

@@ -99,6 +99,19 @@ public class menu extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         textProd = new javax.swing.JTextArea();
         verProd = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        provP = new javax.swing.JComboBox<>();
+        catP = new javax.swing.JComboBox<>();
+        descr = new javax.swing.JTextField();
+        precio = new javax.swing.JTextField();
+        exist = new javax.swing.JTextField();
+        agrep = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -536,6 +549,22 @@ public class menu extends javax.swing.JFrame {
 
         verProd.setText("Ver productos");
 
+        jLabel33.setText("Ver productos:");
+
+        jLabel34.setText("Agregar producto:");
+
+        jLabel35.setText("Proveedor:");
+
+        jLabel36.setText("Categoría:");
+
+        jLabel37.setText("Descripción:");
+
+        jLabel38.setText("Precio:");
+
+        jLabel39.setText("Existencia:");
+
+        agrep.setText("Agregar producto");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -543,18 +572,79 @@ public class menu extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verProd))
-                .addContainerGap(539, Short.MAX_VALUE))
+                    .addComponent(verProd)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel34)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jLabel35)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(catP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(provP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel36))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel37)
+                                            .addComponent(jLabel38)
+                                            .addComponent(jLabel39))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(exist, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(descr)
+                                                .addComponent(precio, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(agrep)
+                                        .addGap(0, 59, Short.MAX_VALUE)))))))
+                .addContainerGap(345, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34))
                 .addGap(18, 18, 18)
-                .addComponent(verProd)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel35)
+                            .addComponent(provP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel36)
+                            .addComponent(catP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37)
+                            .addComponent(descr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel38)
+                            .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel39)
+                            .addComponent(exist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(verProd)
+                    .addComponent(agrep))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Productos", jPanel6);
@@ -727,7 +817,9 @@ public class menu extends javax.swing.JFrame {
     public javax.swing.JButton agrePro;
     public javax.swing.JButton agregarC;
     public javax.swing.JButton agregarCl;
+    public javax.swing.JButton agrep;
     public javax.swing.JTextField apeEm;
+    public javax.swing.JComboBox<String> catP;
     public javax.swing.JTextField cate;
     public javax.swing.JComboBox<String> categoria;
     public javax.swing.JTextField ced;
@@ -741,8 +833,10 @@ public class menu extends javax.swing.JFrame {
     public com.toedter.calendar.JDateChooser dateEm;
     public com.toedter.calendar.JDateChooser datechooserOr;
     public javax.swing.JTextField descOR;
+    public javax.swing.JTextField descr;
     public javax.swing.JTextField dire;
     public javax.swing.JButton eliminarC;
+    public javax.swing.JTextField exist;
     public javax.swing.JTextField extEm;
     public javax.swing.JTextField fax;
     public javax.swing.JTextField fijo;
@@ -773,6 +867,13 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -797,6 +898,8 @@ public class menu extends javax.swing.JFrame {
     public javax.swing.JTextField nomPro;
     public javax.swing.JTextField nombre;
     public javax.swing.JTextField nombreEm;
+    public javax.swing.JTextField precio;
+    public javax.swing.JComboBox<String> provP;
     public javax.swing.JTextArea text;
     public javax.swing.JTextArea textCli;
     public javax.swing.JTextArea textEm;

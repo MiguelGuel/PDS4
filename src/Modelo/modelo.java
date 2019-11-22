@@ -89,12 +89,26 @@ public class modelo {
             ResultSet rs = db.llenarClientes();
             return rs;
         }
+        
+        public ResultSet llenarProveedores(){
+            ResultSet rs = db.llenarProveedores();
+            return rs;
+        }
+        
+        public ResultSet llenarCategorias(){
+            ResultSet rs = db.llenarCategorias();
+            return rs;
+        }
         public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext){
             db.agregarEmpleado(nombre,ape,fecha,id,ext);
         }
         
         public void agregarOrden(int id, int idc, String fecha, int desc){
             db.agregarOrden(id, idc, fecha, desc);
+        }
+        
+        public void agregarProducto(int provid, int catid, String desc, int precio, int exist){
+            db.agregarProducto(provid, catid, desc, precio, exist);
         }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();
