@@ -47,6 +47,8 @@ public class control implements ActionListener {
         men.agrep.addActionListener(this);
     }
     public void llenarEmpleados(){
+        men.comboEm.removeAllItems();
+        men.comboEmOr.removeAllItems();
         ResultSet rs = model.llenarEmpleados();
         try {
             while (rs.next()) {
@@ -59,6 +61,7 @@ public class control implements ActionListener {
         
     }
     public void llenarClientes(){
+        men.comboClieOr.removeAllItems();
         ResultSet rs = model.llenarClientes();
         try {
             while (rs.next()) {
@@ -70,6 +73,7 @@ public class control implements ActionListener {
     }
     
     public void llenarProveedores(){
+        men.provP.removeAllItems();
         ResultSet rs = model.llenarProveedores();
         try {
             while (rs.next()) {
@@ -81,10 +85,13 @@ public class control implements ActionListener {
     }
     
     public void llenarCategorias(){
+        men.catP.removeAllItems();
+        men.categoria.removeAllItems();
         ResultSet rs = model.llenarCategorias();
         try {
             while (rs.next()) {
               men.catP.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
+              men.categoria.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
             }
         } catch (SQLException ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,6 +159,7 @@ public class control implements ActionListener {
                 String cate = men.cate.getText();
                 model.agregarCategoria(cate);
                 men.cate.setText("");
+                llenarCategorias();
                 break;
                 
             case "Agregar proveedor":
@@ -216,6 +224,16 @@ public class control implements ActionListener {
                 men.descr.setText("");
                 men.precio.setText("");
                 men.exist.setText("");
+                break;
+                
+            case "Eliminar categoria":
+                String datoscat = (String) men.categoria.getSelectedItem();
+                System.out.println(datoscat);
+                String datcat[] = datoscat.split("-");
+                String categ = datcat[0];
+                System.out.println(categ);
+                model.elimincarCategoria(categ);
+                llenarCategorias();
                 break;
             default:
                 throw new AssertionError();

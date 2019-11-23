@@ -43,7 +43,7 @@ public class modelo {
         return resultado;
     }
     public String buscarProveedores(){
-       String resultado = db.buscarProveedores("select * from proveedores");
+       String resultado = db.buscarProveedores("select * from proveedores order by proveedorid");
         return resultado;
         
     }
@@ -109,6 +109,10 @@ public class modelo {
         
         public void agregarProducto(int provid, int catid, String desc, int precio, int exist){
             db.agregarProducto(provid, catid, desc, precio, exist);
+        }
+        
+        public void elimincarCategoria(String cat){
+            db.eliminarCategoria(cat);
         }
     /*public String buscarCategoriasMy(String query) {
         StringBuilder sb = new StringBuilder();

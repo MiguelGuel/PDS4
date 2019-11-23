@@ -74,7 +74,7 @@ public abstract class DataBase {
     public String buscarClientes() {
         StringBuilder sb = new StringBuilder();
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from clientes");
+            PreparedStatement ps = connection.prepareStatement("select * from clientes order by clienteid");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String cedula = rs.getString(2);
@@ -107,9 +107,10 @@ public abstract class DataBase {
         StringBuilder sb = new StringBuilder();
         try {
             PreparedStatement ps = connection.prepareStatement("select emp.nombre, emp.apellido,emp.fecha_nac, jefe.nombre as nombre_del_jefe, jefe.apellido as ape_del_jefe, emp.extension\n"
-                    + "  from empleados emp       -- emp: empleado\n"
-                    + "  left join empleados jefe\n"
-                    + "    on jefe.empleadoid = emp.reporta_a;");
+                    + "from empleados emp \n"
+                    + "left join empleados jefe\n"
+                    + "on jefe.empleadoid = emp.reporta_a\n"
+                    + "order by emp.empleadoid;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String nombre = rs.getString(1).trim();
@@ -136,7 +137,8 @@ public abstract class DataBase {
         StringBuilder sb = new StringBuilder();
         try {
             PreparedStatement ps = connection.prepareStatement("select empleados.nombre, empleados.apellido, clientes.nombrecia, ordenes.fechaorden, ordenes.descuento\n"
-                    + "from ordenes join empleados on (ordenes.empleadoid = empleados.empleadoid) join clientes on (clientes.clienteid = ordenes.clienteid)");
+                    + "from ordenes join empleados on (ordenes.empleadoid = empleados.empleadoid) join clientes on (clientes.clienteid = ordenes.clienteid)\n"
+                    + "order by ordenes.ordenid");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String nombre = rs.getString(1).trim();
@@ -160,7 +162,8 @@ public abstract class DataBase {
         StringBuilder sb = new StringBuilder();
         try {
             PreparedStatement ps = connection.prepareStatement("select proveedores.nombreprov, categorias.nombrecat, productos.descripcion, productos.preciounit\n"
-                    + "from proveedores join productos on(proveedores.proveedorid = productos.proveedorid) join categorias on (categorias.categoriaid = productos.categoriaid)");
+                    + "from proveedores join productos on(proveedores.proveedorid = productos.proveedorid) join categorias on (categorias.categoriaid = productos.categoriaid)\n"
+                    + "order by proveedores.proveedorid");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String prove = rs.getString(1);
@@ -181,7 +184,7 @@ public abstract class DataBase {
 
     public void agregarCliente(String cedula, String nombre, String contacto, String direccion, String fax, String email, String cel, String fijo) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select clienteid from clientes", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement ps = connection.prepareStatement("select clienteid from clientes order by clienteid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             rs.last();
             int ultimo = rs.getInt(1) + 1;
@@ -199,10 +202,11 @@ public abstract class DataBase {
 
     public void agregarCategoria(String cate) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT categoriaid FROM categorias", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement ps = connection.prepareStatement("SELECT categoriaid FROM categorias order by categoriaid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
             rs.last();
-            int ultimo = rs.getInt("categoriaid") + 100;
+            int ultimo = rs.getInt(1) + 100;
+            System.out.println(ultimo);
             String query = "INSERT INTO categorias(\n"
                     + "	categoriaid, nombrecat)\n"
                     + "	VALUES (" + ultimo + ",'" + cate.toUpperCase() + "');";
@@ -234,7 +238,7 @@ public abstract class DataBase {
     public ResultSet llenarEmpleados() {
         ResultSet rs = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados");
+            PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados order by empleadoid" );
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,7 +249,7 @@ public abstract class DataBase {
     public ResultSet llenarClientes() {
         ResultSet rs = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select clienteid,nombrecia from clientes");
+            PreparedStatement ps = connection.prepareStatement("select clienteid,nombrecia from clientes order by clienteid" );
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -320,6 +324,19 @@ public abstract class DataBase {
                     + "	VALUES (" + ultimo + "," + provid + "," + catid + ",'" + desc + "'," + precio + "," + exist + ");";
             PreparedStatement ps1 = connection.prepareStatement(query);
             ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void eliminarCategoria(String cat) {
+        String query = "DELETE FROM categorias\n"
+                + "WHERE categoriaid = " + cat + ";";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }

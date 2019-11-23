@@ -151,6 +151,11 @@ public class menu extends javax.swing.JFrame {
         jLabel3.setText("Eliminar categoria:");
 
         eliminarC.setText("Eliminar categoria");
+        eliminarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarCActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -775,6 +780,10 @@ public class menu extends javax.swing.JFrame {
     private void verOrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verOrActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_verOrActionPerformed
+
+    private void eliminarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarCActionPerformed
 
     /**
      * @param args the command line arguments
