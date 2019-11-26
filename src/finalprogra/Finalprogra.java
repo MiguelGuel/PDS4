@@ -7,10 +7,19 @@ package finalprogra;
 
 import Controlador.control;
 import Controlador.controlador;
-import Modelo.modelo;
 import Vista.Vista;
 import Vista.menu;
 import javax.swing.JOptionPane;
+import proxymodel.proxyInterface;
+import java.net.MalformedURLException;
+import java.rmi.AccessException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.rmi.registry.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,17 +31,23 @@ public class Finalprogra {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String base = JOptionPane.showInputDialog("¿Qué base de datos desea usar?");
-        modelo mod = new modelo(base);
-        mod.setBase(base);
-        //Vista vis = new Vista();
-        menu men = new menu();
-        //controlador ctrl = new controlador(vis,mod);
-        control ctr = new control(men, mod);
-        //ctrl.iniciar();
-        ctr.iniciar();
-        //vis.setVisible(true);
-        men.setVisible(true);
+        try {
+            String base = JOptionPane.showInputDialog("¿Qué base de datos desea usar?");
+            proxyInterface mod = (proxyInterface)LocateRegistry.getRegistry("localhost", 9000);
+            mod.setBase(base);
+            //Vista vis = new Vista();
+            menu men = new menu();
+            //controlador ctrl = new controlador(vis,mod);
+            control ctr = new control(men, mod);
+            //ctrl.iniciar();
+            ctr.iniciar();
+            //vis.setVisible(true);
+            men.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 

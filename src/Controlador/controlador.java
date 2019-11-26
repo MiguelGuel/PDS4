@@ -4,15 +4,14 @@
  * and open the template in the editor.
  */
 package Controlador;
-
-import Modelo.DataBase;
-import Modelo.factory;
-import Modelo.modelo;
 import Vista.Vista;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import proxymodel.proxyInterface;
 
 /**
  *
@@ -21,8 +20,8 @@ import javax.swing.JOptionPane;
 public class controlador implements ActionListener {
 
     private Vista view;
-    private modelo model;
-    public controlador(Vista view, modelo model) {
+    private proxyInterface model;
+    public controlador(Vista view, proxyInterface model) {
         this.view = view;
         this.model = model;
         view.next.addActionListener(this);
@@ -41,12 +40,27 @@ public class controlador implements ActionListener {
         switch (command) {
             case "Continuar":
                 if (view.postgre.isSelected()) {
-                    model.setBase("PostgreSQL");
+            try {
+                model.setBase("PostgreSQL");
+            } catch (SQLException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 } else if (view.mysql.isSelected()) {
-                    model.setBase("MySQL");
+            try {
+                model.setBase("MySQL");
+            } catch (SQLException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 }
-                System.out.println(model.getBase());
+            {
+                try {
+                    System.out.println(model.getBase());
+                } catch (SQLException ex) {
+                    Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
                 break;
+
                 
             default:
                 throw new AssertionError();
