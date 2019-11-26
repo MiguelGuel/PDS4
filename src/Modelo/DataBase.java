@@ -163,7 +163,7 @@ public abstract class DataBase {
         try {
             PreparedStatement ps = connection.prepareStatement("select proveedores.nombreprov, categorias.nombrecat, productos.descripcion, productos.preciounit\n"
                     + "from proveedores join productos on(proveedores.proveedorid = productos.proveedorid) join categorias on (categorias.categoriaid = productos.categoriaid)\n"
-                    + "order by productos.productoid");
+                    + "order by proveedores.proveedorid");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String prove = rs.getString(1);
@@ -238,7 +238,7 @@ public abstract class DataBase {
     public ResultSet llenarEmpleados() {
         ResultSet rs = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados order by empleadoid");
+            PreparedStatement ps = connection.prepareStatement("select empleadoid, nombre,apellido from empleados order by empleadoid" );
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -249,7 +249,7 @@ public abstract class DataBase {
     public ResultSet llenarClientes() {
         ResultSet rs = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select clienteid,nombrecia from clientes order by clienteid");
+            PreparedStatement ps = connection.prepareStatement("select clienteid,nombrecia from clientes order by clienteid" );
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
