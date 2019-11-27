@@ -20,6 +20,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validator.CedulaValidation;
+import validator.CelValidation;
+import validator.ContactoValidation;
+import validator.DireccionValidation;
+import validator.FaxValidation;
+import validator.FijoValidation;
+import validator.MailValidation;
+import validator.NameValidation;
 import validator.Validator;
 import validator.categoriaValidator;
 import validator.clienteValidator;
@@ -33,7 +41,7 @@ public class control implements ActionListener {
 
     private menu men;
     private modelo model;
-    compositeValidator rv;
+    clienteValidator cv;
     List<String> listathree = new ArrayList<>();
     
 
@@ -41,7 +49,14 @@ public class control implements ActionListener {
         this.men = men;
         this.model = model;
         List<Validator> listaCliente = new ArrayList<>();
-        listaCliente.add(new clienteValidator());
+        listaCliente.add(new CedulaValidation());
+        listaCliente.add(new CelValidation());
+        listaCliente.add(new ContactoValidation());
+        listaCliente.add(new DireccionValidation());
+        listaCliente.add(new FaxValidation());
+        listaCliente.add(new FijoValidation());
+        listaCliente.add(new MailValidation());
+        listaCliente.add(new NameValidation());
         //lista.add(new categoriaValidator());
         llenarEmpleados();
         llenarClientes();
@@ -62,7 +77,7 @@ public class control implements ActionListener {
         men.agrep.addActionListener(this);
         men.eliCli.addActionListener(this);
 
-        rv = new compositeValidator(lista);
+        cv = new clienteValidator(listaCliente);
     }
 
     public void llenarEmpleados() {
@@ -168,7 +183,7 @@ public class control implements ActionListener {
                 String mail = men.mail.getText();
                 String cel = men.cel.getText();
                 String fijo = men.fijo.getText();
-                listathree = rv.validate(new datos(cedula, nombre, contacto, dire, fax, mail, cel, fijo));
+                listathree = cv.validate(new datos(cedula, nombre, contacto, dire, fax, mail, cel, fijo));
                 for (String v : listathree) {
                     System.out.println(v);
                     stb.append("- " + v + "\n");
