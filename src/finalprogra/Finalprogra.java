@@ -33,8 +33,10 @@ public class Finalprogra {
     public static void main(String[] args) {
         try {
             String base = JOptionPane.showInputDialog("¿Qué base de datos desea usar?");
-            proxyInterface mod = (proxyInterface)LocateRegistry.getRegistry("localhost", 9000);
+            Registry reg=LocateRegistry.getRegistry("localhost", 9000);
+            proxyInterface mod=  (proxyInterface) reg.lookup("server");
             mod.setBase(base);
+            mod.init();
             //Vista vis = new Vista();
             menu men = new menu();
             //controlador ctrl = new controlador(vis,mod);
@@ -46,6 +48,10 @@ public class Finalprogra {
         } catch (RemoteException ex) {
             Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(Finalprogra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,32 +51,27 @@ public class control implements ActionListener {
         try {
             men.comboEm.removeAllItems();
             men.comboEmOr.removeAllItems();
-            ResultSet rs = model.llenarEmpleados();
-            try {
-                while (rs.next()) {
-                    men.comboEm.addItem(rs.getInt(1)+"-"+rs.getString(2).trim() + " " + rs.getString(3).trim());
-                    men.comboEmOr.addItem(rs.getInt(1)+"-"+rs.getString(2).trim() + " " + rs.getString(3).trim());
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+            ArrayList<String> info=model.llenarEmpleados();
+            for (int i = 0; i < info.size(); i++) {
+                men.comboEm.addItem(info.get(i));
+                men.comboEmOr.addItem(info.get(i));
             }
-        } catch (SQLException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         
     }
     public void llenarClientes(){
         try {
             men.comboClieOr.removeAllItems();
-            ResultSet rs = model.llenarClientes();
-            try {
-                while (rs.next()) {
-                    men.comboClieOr.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+            ArrayList<String> info=model.llenarClientes();
+            for (int i = 0; i < info.size(); i++) {
+                men.comboClieOr.addItem(info.get(i));
             }
-        } catch (SQLException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -83,15 +79,12 @@ public class control implements ActionListener {
     public void llenarProveedores(){
         try {
             men.provP.removeAllItems();
-            ResultSet rs = model.llenarProveedores();
-            try {
-                while (rs.next()) {
-                    men.provP.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+            ArrayList<String> info=model.llenarProveedores();
+            for (int i = 0; i < info.size(); i++) {
+                men.provP.addItem(info.get(i));
             }
-        } catch (SQLException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -100,16 +93,13 @@ public class control implements ActionListener {
         try {
             men.catP.removeAllItems();
             men.categoria.removeAllItems();
-            ResultSet rs = model.llenarCategorias();
-            try {
-                while (rs.next()) {
-                    men.catP.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
-                    men.categoria.addItem(rs.getInt(1) + "-" + rs.getString(2).trim());
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+            ArrayList<String> info = model.llenarCategorias();
+            for (int i = 0; i < info.size(); i++) {
+                men.catP.addItem(info.get(i));
+                men.categoria.addItem(info.get(i));
             }
-        } catch (SQLException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -255,7 +245,7 @@ public class control implements ActionListener {
                 default:
                     throw new AssertionError();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
 

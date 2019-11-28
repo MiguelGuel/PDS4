@@ -44,11 +44,15 @@ public class controlador implements ActionListener {
                 model.setBase("PostgreSQL");
             } catch (SQLException ex) {
                 Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
             }
                 } else if (view.mysql.isSelected()) {
             try {
                 model.setBase("MySQL");
             } catch (SQLException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
             }
                 }
@@ -57,7 +61,9 @@ public class controlador implements ActionListener {
                     System.out.println(model.getBase());
                 } catch (SQLException ex) {
                     Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (Exception ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
                 break;
 

@@ -376,6 +376,12 @@ public class menu extends javax.swing.JFrame {
 
         dateEm.setDateFormatString("yyyy/MM/dd");
 
+        comboEm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEmActionPerformed(evt);
+            }
+        });
+
         agreEm.setText("Agregar empleado");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -784,6 +790,10 @@ public class menu extends javax.swing.JFrame {
     private void eliminarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarCActionPerformed
+
+    private void comboEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEmActionPerformed
 
     /**
      * @param args the command line arguments

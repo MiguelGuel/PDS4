@@ -4,50 +4,49 @@
  * and open the template in the editor.
  */
 package proxymodel;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Usuario
  */
 public interface proxyInterface{
-    public void init(String dbName)throws SQLException;
+    public void init()throws Exception;
 
-    public String getBase()throws SQLException;
+    public String getBase()throws Exception;
 
-    public void setBase(String base)throws SQLException;
+    public void setBase(String base)throws Exception;
 
    
-    public String buscarCategorias(String query)throws SQLException;
-    public String buscarProveedores()throws SQLException;
-    public String buscarClientes()throws SQLException;
+    public String buscarCategorias(String query)throws Exception;
+    public String buscarProveedores()throws Exception;
+    public String buscarClientes()throws Exception;
         
-    public String buscarEmpleados()throws SQLException;
+    public String buscarEmpleados()throws Exception;
         
-    public String buscarOrdendes()throws SQLException;
+    public String buscarOrdendes()throws Exception;
         
-    public String buscarProductos()throws SQLException;
+    public String buscarProductos()throws Exception;
 
-    public void agregarCliente(String cedula, String nombre, String contacto, String direccion, String fax, String email, String celular, String fijo)throws SQLException;
+    public void agregarCliente(String cedula, String nombre, String contacto, String direccion, String fax, String email, String celular, String fijo)throws Exception;
 
-    public void agregarCategoria(String cate)throws SQLException;
+    public void agregarCategoria(String cate)throws Exception;
 
-    public void agregarProveedor(String nombre, String cont, String cel, String fijo)throws SQLException;
+    public void agregarProveedor(String nombre, String cont, String cel, String fijo)throws Exception;
 
-    public ResultSet llenarEmpleados()throws SQLException;
+    public ArrayList llenarEmpleados()throws Exception;
 
-    public ResultSet llenarClientes()throws SQLException;
+    public ArrayList llenarClientes()throws Exception;
 
-    public ResultSet llenarProveedores()throws SQLException;
+    public ArrayList llenarProveedores()throws Exception;
 
-    public ResultSet llenarCategorias()throws SQLException;
+    public ArrayList llenarCategorias()throws Exception;
 
-    public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext)throws SQLException;
+    public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext)throws Exception;
 
-    public void agregarOrden(int id, int idc, String fecha, int desc)throws SQLException;
+    public void agregarOrden(int id, int idc, String fecha, int desc)throws Exception;
 
-    public void agregarProducto(int provid, int catid, String desc, int precio, int exist)throws SQLException;
+    public void agregarProducto(int provid, int catid, String desc, int precio, int exist)throws Exception;
 
-    public void elimincarCategoria(String cat)throws SQLException;
+    public void elimincarCategoria(String cat)throws Exception;
     
 }
