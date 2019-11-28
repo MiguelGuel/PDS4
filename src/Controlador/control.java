@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 import clases.datos;
@@ -34,9 +29,14 @@ import validator.Validator;
 import validator.clienteValidator;
 import validator.compositeValidator;
 import categoriaV.nombreValidation;
+import clases.detalles;
 import clases.empleado;
 import clases.producto;
 import clases.proveedor;
+import detallesV.ValidatorD;
+import detallesV.cantidadValidation;
+import detallesV.detalleValidation;
+import detallesV.detallesValidator;
 import empleadoV.ValidatorE;
 import empleadoV.apellidoValidation;
 import empleadoV.empleadoValidator;
@@ -72,6 +72,7 @@ public class control implements ActionListener {
     productoValidator proV;
     proveedorValidator proVa;
     empleadoValidator ev;
+    detallesValidator dv;
     List<String> listathree = new ArrayList<>();
 
     public control(menu men, modelo model) {
@@ -118,10 +119,17 @@ public class control implements ActionListener {
         listaE.add(new fechaeValidation());
         listaE.add(new extValidation());
         //termina validator para empleado
+        //inicia validator para detalles
+        List<ValidatorD> listaD = new ArrayList<>();
+        listaD.add(new detalleValidation());
+        listaD.add(new cantidadValidation());
+        //termina validator para detalles
         llenarEmpleados();
         llenarClientes();
         llenarProveedores();
         llenarCategorias();
+        llenarOrdenes();
+        llenarProductos();
         men.verC.addActionListener(this);
         men.agregarC.addActionListener(this);
         men.eliminarC.addActionListener(this);
@@ -136,12 +144,14 @@ public class control implements ActionListener {
         men.agreOr.addActionListener(this);
         men.agrep.addActionListener(this);
         men.eliCli.addActionListener(this);
+        men.agregarD.addActionListener(this);
 
         cv = new clienteValidator(listaCliente);
         catV = new categoriaValidator(listaCate);
         proV = new productoValidator(listaPro);
         proVa = new proveedorValidator(listaProv);
         ev = new empleadoValidator(listaE);
+        dv = new detallesValidator(listaD);
     }
 
     public Date comprobarEdad() {
@@ -176,7 +186,30 @@ public class control implements ActionListener {
         }
 
     }
-
+    public void llenarOrdenes(){
+        men.idor.removeAllItems();
+        ResultSet rs = model.llenarOrdenes();
+        try {
+            while (rs.next()) {
+                men.idor.addItem(rs.getInt(1) + "");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void llenarProductos(){
+        men.proDe.removeAllItems();
+        ResultSet rs = model.llenarProductos();
+        try {
+            while (rs.next()) {
+                men.proDe.addItem(rs.getInt(1)+ "-" + rs.getString(2).trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void llenarClientes() {
         men.comboClieOr.removeAllItems();
         men.clientes.removeAllItems();
@@ -248,7 +281,7 @@ public class control implements ActionListener {
                 break;
 
             case "Ver ordenes":
-                String datosor = model.buscarOrdendes();
+                String datosor = model.buscarOrdenes();
                 men.textOr.setText(datosor);
                 break;
             case "Ver productos":
@@ -411,6 +444,32 @@ public class control implements ActionListener {
                 System.out.println(categ);
                 model.elimincarCategoria(categ);
                 llenarCategorias();
+                break;
+                
+            case "Ver detalles":
+                String datosde = model.buscarDetalles();
+                men.detallestxt.setText(datosde);
+                break;
+                
+            case "Agregar detalles":
+                String idorden = (String) men.idor.getSelectedItem();
+                String idetalle = men.detalleD.getText();
+                String producto = (String) men.proDe.getSelectedItem();
+                String datosD[] = producto.split("-");
+                String prod = datosD[0];
+                String canti = men.cantidad.getText();
+                listathree = dv.validateD(new detalles(idorden, idetalle, prod, canti));
+                for (String v : listathree) {
+                    System.out.println(v);
+                    stb.append("- " + v + "\n");
+                }
+                if (stb.length() == 0) {
+                    model.agregarDetalles(idorden, idetalle, prod, canti);
+                    men.detalleD.setText("");
+                    men.cantidad.setText("");
+                }else {
+                    JOptionPane.showMessageDialog(null, stb.toString());
+                }
                 break;
             default:
                 throw new AssertionError();

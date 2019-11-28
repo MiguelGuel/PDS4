@@ -182,6 +182,30 @@ public abstract class DataBase {
         return sb.toString();
     }
 
+    public String buscarDetalles() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            PreparedStatement ps = connection.prepareStatement("select detalle_ordenes.ordenid, detalle_ordenes.detalleid, productos.descripcion, detalle_ordenes.cantidad\n"
+                    + "from detalle_ordenes join productos on (detalle_ordenes.productoid = productos.productoid)\n"
+                    + "order by detalle_ordenes.ordenid");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ordenid = rs.getInt(1);
+                int detalleid = rs.getInt(2);
+                String descripcion = rs.getString(3);
+                int cantidad = rs.getInt(4);
+                sb.append("ID de orden: " + ordenid + "\n");
+                sb.append("ID de detalle: " + detalleid + "\n");
+                sb.append("Descripción: " + descripcion + "\n");
+                sb.append("Cantidad: " + cantidad + "\n");
+                sb.append("-------------\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sb.toString();
+    }
+
     public void agregarCliente(String cedula, String nombre, String contacto, String direccion, String fax, String email, String cel, String fijo) {
         try {
             PreparedStatement ps = connection.prepareStatement("select clienteid from clientes order by clienteid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -279,6 +303,30 @@ public abstract class DataBase {
         return rs;
     }
 
+    public ResultSet llenarOrdenes() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select ordenid from ordenes\n"
+                    + "order by ordenid");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public ResultSet llenarProductos() {
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select productoid, descripcion from productos");
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
     public void agregarEmpleado(String nombre, String ape, String fecha, String jefe, String ext) {
         PreparedStatement ps;
         try {
@@ -324,6 +372,20 @@ public abstract class DataBase {
                     + "	VALUES (" + ultimo + "," + provid + "," + catid + ",'" + desc + "'," + precio + "," + exist + ");";
             PreparedStatement ps1 = connection.prepareStatement(query);
             ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void agregarDetalles(String idorden, String idetalle, String productoid, String cantidad) {
+        try {
+            String query = "INSERT INTO detalle_ordenes(\n"
+                    + "	ordenid, detalleid, productoid, cantidad)\n"
+                    + "	VALUES ("+idorden+","+idetalle+","+productoid+","+cantidad+");";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.executeUpdate();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }

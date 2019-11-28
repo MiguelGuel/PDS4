@@ -58,11 +58,14 @@ public class modelo {
             return resultado;
         }
         
-        public String buscarOrdendes(){
+        public String buscarOrdenes(){
             String resultado = db.buscarOrdenes();
             return resultado;
         }
-        
+        public String buscarDetalles(){
+            String resultado = db.buscarDetalles();
+            return resultado;
+        }
         public String buscarProductos(){
             String resultado = db.buscarProductos();
             return resultado;
@@ -99,6 +102,14 @@ public class modelo {
             ResultSet rs = db.llenarCategorias();
             return rs;
         }
+        public ResultSet llenarOrdenes(){
+            ResultSet rs = db.llenarOrdenes();
+            return rs;
+        }
+        public ResultSet llenarProductos(){
+            ResultSet rs = db.llenarProductos();
+            return rs;
+        }
         public void agregarEmpleado(String nombre, String ape, String fecha, String id, String ext){
             db.agregarEmpleado(nombre,ape,fecha,id,ext);
         }
@@ -109,6 +120,10 @@ public class modelo {
         
         public void agregarProducto(String provid, String catid, String desc, String precio, String exist){
             db.agregarProducto(provid, catid, desc, precio, exist);
+        }
+        
+        public void agregarDetalles(String idorden, String idetalle, String productoid, String cantidad){
+            db.agregarDetalles(idorden, idetalle, productoid, cantidad);
         }
         
         public void elimincarCategoria(String cat){
