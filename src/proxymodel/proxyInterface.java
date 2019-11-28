@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package proxymodel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  *
@@ -12,6 +13,11 @@ import java.util.ArrayList;
 public interface proxyInterface{
     public void init()throws Exception;
 
+    public void update(String tablename,String criteria, String target, String criteriavalue, String targetvalue) throws Exception;
+    
+    public ArrayList getTablas() throws Exception;
+    
+    public ArrayList getColumnas(String tablename) throws Exception;
     public String getBase()throws Exception;
 
     public void setBase(String base)throws Exception;

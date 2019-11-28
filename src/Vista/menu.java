@@ -127,6 +127,20 @@ public class menu extends javax.swing.JFrame {
         celPro = new javax.swing.JTextField();
         fijoPro = new javax.swing.JTextField();
         agrePro = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        seleccionarTabla = new javax.swing.JButton();
+        jLabel40 = new javax.swing.JLabel();
+        comboTablas = new javax.swing.JComboBox();
+        comboAtributo = new javax.swing.JComboBox<>();
+        modificarTabla = new javax.swing.JButton();
+        jLabel41 = new javax.swing.JLabel();
+        campoValor = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        comboCriterio = new javax.swing.JComboBox<>();
+        campoCriterio = new javax.swing.JTextField();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        reiniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -287,7 +301,7 @@ public class menu extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(354, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +362,7 @@ public class menu extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Detalles de ordenes", jPanel3);
@@ -618,8 +632,8 @@ public class menu extends javax.swing.JFrame {
                                                 .addComponent(precio, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(agrep)
-                                        .addGap(0, 59, Short.MAX_VALUE)))))))
-                .addContainerGap(345, Short.MAX_VALUE))
+                                        .addGap(0, 61, Short.MAX_VALUE)))))))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,7 +732,7 @@ public class menu extends javax.swing.JFrame {
                             .addComponent(jLabel17)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(conPro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,6 +768,126 @@ public class menu extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Proveedores", jPanel7);
+
+        seleccionarTabla.setText("OK");
+        seleccionarTabla.setActionCommand("Seleccionar Tabla");
+        seleccionarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarTablaActionPerformed(evt);
+            }
+        });
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel40.setText("Atributo a modificar:");
+
+        comboTablas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        comboAtributo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAtributoActionPerformed(evt);
+            }
+        });
+
+        modificarTabla.setText("OK");
+        modificarTabla.setActionCommand("Actualizar");
+        modificarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarTablaActionPerformed(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel41.setText("Tabla a modificar:");
+
+        campoValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoValorActionPerformed(evt);
+            }
+        });
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel42.setText("Criterio:");
+
+        campoCriterio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCriterioActionPerformed(evt);
+            }
+        });
+
+        jLabel43.setText("=");
+
+        jLabel44.setText("=");
+
+        reiniciar.setText("Reiniciar");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(comboCriterio, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboTablas, javax.swing.GroupLayout.Alignment.LEADING, 0, 142, Short.MAX_VALUE)
+                                .addComponent(comboAtributo, javax.swing.GroupLayout.Alignment.LEADING, 0, 142, Short.MAX_VALUE))
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addGap(22, 22, 22)
+                                    .addComponent(modificarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel44)
+                                        .addComponent(jLabel43))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(seleccionarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(reiniciar))
+                                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(campoCriterio, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(campoValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))))
+                        .addComponent(jLabel40)
+                        .addComponent(jLabel42)))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seleccionarTabla)
+                    .addComponent(reiniciar))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel40)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel44))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(modificarTabla)
+                .addGap(73, 73, 73))
+        );
+
+        getRootPane().setDefaultButton(seleccionarTabla);
+
+        jTabbedPane1.addTab("Modificar Datos", jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -794,6 +928,169 @@ public class menu extends javax.swing.JFrame {
     private void comboEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboEmActionPerformed
+
+    private void seleccionarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarTablaActionPerformed
+        /*
+        try {
+            String name = comboTablas.getSelectedItem().toString();
+            DatabaseMetaData dmd = null;
+            String sql=null;
+            ResultSet rs=null;
+            ResultSetMetaData md=null;
+            switch (name) {
+                case "Vegetales":
+                sql = "SELECT * FROM vegetables";
+                nombretabla="vegetables";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+                }
+
+                break;
+                case "Instrucciones de Plantado":
+                sql = "SELECT * FROM standard_planting_instructions";
+                nombretabla="standard_planting_instructions";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Instrucciones de Sembrado":
+                sql = "SELECT * FROM standard_sowing_instructions";
+                nombretabla="standard_sowing_instructions";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Pestes":
+                sql = "SELECT * FROM pest_types";
+                nombretabla="pest_types";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Plantas":
+                sql = "SELECT * FROM plants";
+                nombretabla="plants";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Tipos de Suelo":
+                sql = "SELECT * FROM soil_types";
+                nombretabla="soil_types";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Vegetales y Pestes":
+                sql = "SELECT * FROM vegetable_pests";
+                nombretabla="vegetable_pests";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                case "Vegetales y Plantas":
+                sql = "SELECT * FROM companion_plants";
+                nombretabla="companion_plants";
+                rs=db.query(sql);
+                md=rs.getMetaData();
+                for (int i = 0; i < md.getColumnCount(); i++) {
+                    comboAtributo.addItem(md.getColumnName(i+1));
+                    comboCriterio.addItem(md.getColumnName(i+1));
+                    System.out.println(md.getColumnType(i+1));
+                    System.out.println(md.getColumnName(i+1));
+                    tipos.add(md.getColumnType(i+1));
+                    System.out.println("Dato en lista: "+(Integer)tipos.get(i));
+                    System.out.println("Dato en combo: "+comboAtributo.getItemAt(i));
+
+                }
+                break;
+                default:
+                throw new AssertionError();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }*/
+    }//GEN-LAST:event_seleccionarTablaActionPerformed
+
+    private void comboAtributoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAtributoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboAtributoActionPerformed
+
+    private void modificarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarTablaActionPerformed
+        // TODO add your handling code here
+
+    }//GEN-LAST:event_modificarTablaActionPerformed
+
+    private void campoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoValorActionPerformed
+
+    private void campoCriterioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCriterioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCriterioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -838,15 +1135,20 @@ public class menu extends javax.swing.JFrame {
     public javax.swing.JButton agregarCl;
     public javax.swing.JButton agrep;
     public javax.swing.JTextField apeEm;
+    public javax.swing.JTextField campoCriterio;
+    public javax.swing.JTextField campoValor;
     public javax.swing.JComboBox<String> catP;
     public javax.swing.JTextField cate;
     public javax.swing.JComboBox<String> categoria;
     public javax.swing.JTextField ced;
     public javax.swing.JTextField cel;
     public javax.swing.JTextField celPro;
+    public javax.swing.JComboBox<String> comboAtributo;
     public javax.swing.JComboBox<String> comboClieOr;
+    public javax.swing.JComboBox<String> comboCriterio;
     public javax.swing.JComboBox<String> comboEm;
     public javax.swing.JComboBox<String> comboEmOr;
+    public javax.swing.JComboBox comboTablas;
     public javax.swing.JTextField conPro;
     public javax.swing.JTextField contacto;
     public com.toedter.calendar.JDateChooser dateEm;
@@ -894,6 +1196,11 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -906,6 +1213,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -914,11 +1222,14 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTextField mail;
+    public javax.swing.JButton modificarTabla;
     public javax.swing.JTextField nomPro;
     public javax.swing.JTextField nombre;
     public javax.swing.JTextField nombreEm;
     public javax.swing.JTextField precio;
     public javax.swing.JComboBox<String> provP;
+    public javax.swing.JButton reiniciar;
+    public javax.swing.JButton seleccionarTabla;
     public javax.swing.JTextArea text;
     public javax.swing.JTextArea textCli;
     public javax.swing.JTextArea textEm;

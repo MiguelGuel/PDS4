@@ -26,13 +26,14 @@ public class control implements ActionListener {
     private menu men;
     private proxyInterface model;
 
-    public control(menu men, proxyInterface model) {
+    public control(menu men, proxyInterface model) throws Exception {
         this.men = men;
         this.model = model;
         llenarEmpleados();
         llenarClientes();
         llenarProveedores();
         llenarCategorias();
+        llenarTablas();
         men.verC.addActionListener(this);
         men.agregarC.addActionListener(this);
         men.eliminarC.addActionListener(this);
@@ -46,6 +47,9 @@ public class control implements ActionListener {
         men.agreEm.addActionListener(this);
         men.agreOr.addActionListener(this);
         men.agrep.addActionListener(this);
+        men.seleccionarTabla.addActionListener(this);
+        men.modificarTabla.addActionListener(this);
+        men.reiniciar.addActionListener(this);
     }
     public void llenarEmpleados(){
         try {
@@ -102,6 +106,28 @@ public class control implements ActionListener {
         } catch (Exception ex) {
             Logger.getLogger(control.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void llenarTablas() throws Exception{
+        ArrayList tablas = model.getTablas();
+        for (int i = 0; i < tablas.size(); i++) {
+            men.comboTablas.addItem(tablas.get(i));
+            
+        }
+    }
+    public void llenarColumnas() throws Exception{
+        ArrayList columnas = model.getColumnas((String)men.comboTablas.getSelectedItem());
+        for (int i = 0; i < columnas.size(); i++) {
+            men.comboCriterio.addItem((String) columnas.get(i));
+            men.comboAtributo.addItem((String) columnas.get(i));
+        }
+    }
+    public void vaciarColumnas(){
+        men.comboCriterio.removeAllItems();
+        men.comboAtributo.removeAllItems();
+    }
+    public void update() throws Exception{
+        model.update((String)men.comboTablas.getSelectedItem(), (String)men.comboCriterio.getSelectedItem(), (String)men.comboAtributo.getSelectedItem(), men.campoCriterio.getText(), men.campoValor.getText());
+    
     }
     public void iniciar() {
         men.setTitle("Proveedores");
@@ -241,6 +267,17 @@ public class control implements ActionListener {
                     System.out.println(categ);
                     model.elimincarCategoria(categ);
                     llenarCategorias();
+                    break;
+                case "Seleccionar Tabla":
+                    llenarColumnas();
+                    men.comboTablas.setEnabled(false);
+                    break;
+                case "Actualizar":
+                    update();
+                    break;
+                case "Reiniciar":
+                    vaciarColumnas();
+                    men.comboTablas.setEnabled(true);
                     break;
                 default:
                     throw new AssertionError();
