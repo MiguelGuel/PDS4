@@ -392,7 +392,9 @@ public class menu extends javax.swing.JFrame {
 
         jLabel26.setText("Extensión:");
 
-        dateEm.setDateFormatString("yyyy/MM/dd");
+        dateEm.setDate(new java.util.Date(906364917000L));
+        dateEm.setDateFormatString("dd/MM/yyyy");
+        dateEm.setMaxSelectableDate(new java.util.Date(253370793717000L));
 
         agreEm.setText("Agregar empleado");
 
@@ -490,7 +492,9 @@ public class menu extends javax.swing.JFrame {
 
         jLabel32.setText("Fecha:");
 
-        datechooserOr.setDateFormatString("yyyy/MM/dd");
+        datechooserOr.setDate(new java.util.Date(906364917000L));
+        datechooserOr.setDateFormatString("dd/MM/yyyy");
+        datechooserOr.setMaxSelectableDate(new java.util.Date(253370793717000L));
 
         jLabel30.setText("Descuento:");
 

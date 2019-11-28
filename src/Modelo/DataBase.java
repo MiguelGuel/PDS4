@@ -279,7 +279,7 @@ public abstract class DataBase {
         return rs;
     }
 
-    public void agregarEmpleado(String nombre, String ape, String fecha, int jefe, int ext) {
+    public void agregarEmpleado(String nombre, String ape, String fecha, String jefe, String ext) {
         PreparedStatement ps;
         try {
             ps = connection.prepareStatement("select empleadoid from empleados order by empleadoid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -297,7 +297,7 @@ public abstract class DataBase {
 
     }
 
-    public void agregarOrden(int idEm, int idCli, String fecha, int desc) {
+    public void agregarOrden(String idEm, String idCli, String fecha, String desc) {
         try {
             PreparedStatement ps = connection.prepareStatement("select ordenid from ordenes order by ordenid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
@@ -313,7 +313,7 @@ public abstract class DataBase {
         }
     }
 
-    public void agregarProducto(int provid, int catid, String desc, int precio, int exist) {
+    public void agregarProducto(String provid, String catid, String desc, String precio, String exist) {
         try {
             PreparedStatement ps = connection.prepareStatement("select productoid from productos order by productoid", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();

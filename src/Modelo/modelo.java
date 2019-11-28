@@ -99,15 +99,15 @@ public class modelo {
             ResultSet rs = db.llenarCategorias();
             return rs;
         }
-        public void agregarEmpleado(String nombre, String ape, String fecha, int id, int ext){
+        public void agregarEmpleado(String nombre, String ape, String fecha, String id, String ext){
             db.agregarEmpleado(nombre,ape,fecha,id,ext);
         }
         
-        public void agregarOrden(int id, int idc, String fecha, int desc){
+        public void agregarOrden(String id, String idc, String fecha, String desc){
             db.agregarOrden(id, idc, fecha, desc);
         }
         
-        public void agregarProducto(int provid, int catid, String desc, int precio, int exist){
+        public void agregarProducto(String provid, String catid, String desc, String precio, String exist){
             db.agregarProducto(provid, catid, desc, precio, exist);
         }
         

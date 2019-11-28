@@ -8,10 +8,12 @@ package Controlador;
 import clases.datos;
 import Modelo.modelo;
 import Vista.menu;
+import categoriaV.ValidatorC;
+import categoriaV.categoriaValidator;
 import clases.categoria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -29,9 +31,33 @@ import validator.FijoValidation;
 import validator.MailValidation;
 import validator.NameValidation;
 import validator.Validator;
-import validator.categoriaValidator;
 import validator.clienteValidator;
 import validator.compositeValidator;
+import categoriaV.nombreValidation;
+import clases.empleado;
+import clases.producto;
+import clases.proveedor;
+import empleadoV.ValidatorE;
+import empleadoV.apellidoValidation;
+import empleadoV.empleadoValidator;
+import empleadoV.extValidation;
+import empleadoV.fechaeValidation;
+import empleadoV.nombreeValidation;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import productoV.ValidatorP;
+import productoV.categoriaValidation;
+import productoV.descripcionValidation;
+import productoV.existenciaValidation;
+import productoV.precioValidation;
+import productoV.productoValidator;
+import productoV.proveedorValidation;
+import proveedorV.ValidatorPr;
+import proveedorV.celularValidation;
+import proveedorV.contactoValidation;
+import proveedorV.fijoValidation;
+import proveedorV.nombrePValidation;
+import proveedorV.proveedorValidator;
 
 /**
  *
@@ -42,13 +68,21 @@ public class control implements ActionListener {
     private menu men;
     private modelo model;
     clienteValidator cv;
+    categoriaValidator catV;
+    productoValidator proV;
+    proveedorValidator proVa;
+    empleadoValidator ev;
     List<String> listathree = new ArrayList<>();
-    
 
     public control(menu men, modelo model) {
         this.men = men;
         this.model = model;
+        men.datechooserOr.setMaxSelectableDate(comprobarEdad());
+        men.datechooserOr.setDate(comprobarEdad());
+        men.dateEm.setMaxSelectableDate(comprobarEdad());
+        men.dateEm.setMaxSelectableDate(comprobarEdad());
         List<Validator> listaCliente = new ArrayList<>();
+        //Empiezan validator para cliente
         listaCliente.add(new CedulaValidation());
         listaCliente.add(new CelValidation());
         listaCliente.add(new ContactoValidation());
@@ -57,7 +91,33 @@ public class control implements ActionListener {
         listaCliente.add(new FijoValidation());
         listaCliente.add(new MailValidation());
         listaCliente.add(new NameValidation());
-        //lista.add(new categoriaValidator());
+        //Termina validator para cliente
+        //Empieza validator para categoria
+        List<ValidatorC> listaCate = new ArrayList<>();
+        listaCate.add(new nombreValidation());
+        //Termina validator para categoria
+        //Empieza validator para producto
+        List<ValidatorP> listaPro = new ArrayList<>();
+        listaPro.add(new proveedorValidation());
+        listaPro.add(new categoriaValidation());
+        listaPro.add(new descripcionValidation());
+        listaPro.add(new precioValidation());
+        listaPro.add(new existenciaValidation());
+        //Termina validator para producto
+        //inicia validator para proveedor
+        List<ValidatorPr> listaProv = new ArrayList<>();
+        listaProv.add(new nombrePValidation());
+        listaProv.add(new contactoValidation());
+        listaProv.add(new celularValidation());
+        listaProv.add(new fijoValidation());
+        //termina validator para proveedor
+        //inicia validator para empleado
+        List<ValidatorE> listaE = new ArrayList<>();
+        listaE.add(new nombreeValidation());
+        listaE.add(new apellidoValidation());
+        listaE.add(new fechaeValidation());
+        listaE.add(new extValidation());
+        //termina validator para empleado
         llenarEmpleados();
         llenarClientes();
         llenarProveedores();
@@ -78,6 +138,28 @@ public class control implements ActionListener {
         men.eliCli.addActionListener(this);
 
         cv = new clienteValidator(listaCliente);
+        catV = new categoriaValidator(listaCate);
+        proV = new productoValidator(listaPro);
+        proVa = new proveedorValidator(listaProv);
+        ev = new empleadoValidator(listaE);
+    }
+
+    public Date comprobarEdad() {
+        Date date1 = new Date();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        int endindex = date.length();
+        String tempdate = date.substring(0, 4);
+        int year = Integer.parseInt(tempdate);
+        year -= 18;
+        String newdate = year + date.substring(4, endindex);
+        try {
+            date1 = new SimpleDateFormat("yyyy/MM/dd").parse(newdate);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return date1;
     }
 
     public void llenarEmpleados() {
@@ -206,18 +288,18 @@ public class control implements ActionListener {
 
             case "Agregar categoria":
                 String cate = men.cate.getText();
-//                listathree = rv.validateCate(new categoria(cate));
-//                for (String v : listathree) {
-//                    System.out.println(v);
-//                    stb.append("- " + v + "\n");
-//                }
-//                if (stb.length() == 0) {
-//                    model.agregarCategoria(cate);
-//                    llenarCategorias();
-//                    men.cate.setText("");
-//                } else {
-//                    JOptionPane.showMessageDialog(null, stb.toString());
-//                }
+                listathree = catV.validateCate(new categoria(cate));
+                for (String v : listathree) {
+                    System.out.println(v);
+                    stb.append("- " + v + "\n");
+                }
+                if (stb.length() == 0) {
+                    model.agregarCategoria(cate);
+                    llenarCategorias();
+                    men.cate.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, stb.toString());
+                }
 
                 break;
 
@@ -226,7 +308,22 @@ public class control implements ActionListener {
                 String contactopr = men.conPro.getText();
                 String celpro = men.celPro.getText();
                 String fijopro = men.fijoPro.getText();
-                model.agregarProveedor(nombrepr, contactopr, celpro, fijopro);
+                listathree = proVa.validatePr(new proveedor(nombrepr, contactopr, celpro, fijopro));
+                for (String v : listathree) {
+                    System.out.println(v);
+                    stb.append("- " + v + "\n");
+                }
+                if (stb.length() == 0) {
+                    model.agregarProveedor(nombrepr, contactopr, celpro, fijopro);
+                    llenarProveedores();
+                    men.nomPro.setText("");
+                    men.conPro.setText("");
+                    men.celPro.setText("");
+                    men.fijoPro.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, stb.toString());
+                }
+
                 break;
 
             case "Agregar empleado":
@@ -237,28 +334,39 @@ public class control implements ActionListener {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 String fecha1 = format.format(fecha);
                 String[] datosj = jefe.split("-");
-                int id = Integer.parseInt(datosj[0]);
-                int ext = Integer.parseInt(men.extEm.getText());
-                model.agregarEmpleado(nombreem.toUpperCase(), apellidoem.toUpperCase(), fecha1, id, ext);
-                men.nombreEm.setText("");
-                men.apeEm.setText("");
-                men.comboEm.setSelectedIndex(1);
-                men.extEm.setText("");
+                String id = datosj[0];
+                String ext = men.extEm.getText();
+
+                listathree = ev.validatePro(new empleado(nombreem, apellidoem, fecha1, id, ext));
+                for (String v : listathree) {
+                    System.out.println(v);
+                    stb.append("- " + v + "\n");
+                }
+                if (stb.length() == 0) {
+                    model.agregarEmpleado(nombreem.toUpperCase(), apellidoem.toUpperCase(), fecha1, id, ext);
+                    men.nombreEm.setText("");
+                    men.apeEm.setText("");
+                    men.comboEm.setSelectedIndex(1);
+                    men.extEm.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(null, stb.toString());
+                }
+
                 break;
 
             case "Agregar orden":
                 String emp = (String) men.comboEmOr.getSelectedItem();
                 String datosemp[] = emp.split("-");
-                int idemp = Integer.parseInt(datosemp[0]);
+                String idemp = datosemp[0];
 
                 String cli = (String) men.comboClieOr.getSelectedItem();
                 String dacli[] = cli.split("-");
-                int idecli = Integer.parseInt(dacli[0]);
+                String idecli = dacli[0];
 
                 java.util.Date fechaOr = men.datechooserOr.getDate();
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-                int desc = Integer.parseInt(men.descOR.getText());
+                String desc = men.descOR.getText();
 
                 String fecha2 = formato.format(fechaOr);
 
@@ -269,20 +377,30 @@ public class control implements ActionListener {
             case "Agregar producto":
                 String pro = (String) men.provP.getSelectedItem();
                 String dapro[] = pro.split("-");
-                int idpro = Integer.parseInt(dapro[0]);
+                String idpro = dapro[0];
 
                 String cat = (String) men.catP.getSelectedItem();
                 String dacat[] = cat.split("-");
-                int idcat = Integer.parseInt(dacat[0]);
+                String idcat = dacat[0];
 
                 String descripcion = men.descr.getText();
-                int precio = Integer.parseInt(men.precio.getText());
-                int existencia = Integer.parseInt(men.exist.getText());
+                String precio = men.precio.getText();
+                String existencia = men.exist.getText();
 
-                model.agregarProducto(idpro, idcat, descripcion.toUpperCase(), precio, existencia);
-                men.descr.setText("");
-                men.precio.setText("");
-                men.exist.setText("");
+                listathree = proV.validatePro(new producto(idpro, idcat, descripcion, precio, existencia));
+                for (String v : listathree) {
+                    System.out.println(v);
+                    stb.append("- " + v + "\n");
+                }
+                if (stb.length() == 0) {
+                    model.agregarProducto(idpro, idcat, descripcion.toUpperCase(), precio, existencia);
+                    men.descr.setText("");
+                    men.precio.setText("");
+                    men.exist.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, stb.toString());
+                }
+
                 break;
 
             case "Eliminar categoria":

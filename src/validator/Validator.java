@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface Validator {
     List<String> validate (datos regis);
-    //List<String> validateCate (categoria cat);
 }
